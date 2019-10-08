@@ -48,12 +48,13 @@ class Search extends React.Component {
         this.totalPages = 0
         this.setState({
             films: []
+        }, () => {
+            // J'utilise la paramètre length sur mon tableau de films pour vérifier qu'il y a bien 0 film
+            // console.log("Page : " + this.page + " / TotalPages : " + this.totalPages + " / Nombre de films : " + this.state.films.length)
+            this._loadFilms()
         })
-        // J'utilise la paramètre length sur mon tableau de films pour vérifier qu'il y a bien 0 film
-//        console.log("Page : " + this.page + " / TotalPages : " + this.totalPages + " / Nombre de films : " + this.state.films.length)
-
-        this._loadFilms()
     }
+    
     _searchTextInputChanged(text) {
         this.searchedText = text // Modification du texte recherché à chaque saisie de texte, sans passer par le setState comme avant
     }
