@@ -9,8 +9,8 @@ class Search extends React.Component {
 
     constructor(props) {
         super(props)
-        this.page = 0
-        this.totalPages = 0
+        this.page = 0 // Compteur pour connaître la page courante
+        this.totalPages = 0 // Nombre de pages totales pour savoir si on a atteint la fin des recours de l'API TMDB
         this.searchedText = "" // Initialisation de notre donnée searchedText en dehors du state
         this.state = {
             films: [],
@@ -23,9 +23,9 @@ class Search extends React.Component {
             this.setState({ isLoading: true }) // Lancement du chargement
             getFilmsFromApiWithSearchedText(this.searchedText, this.page + 1).then(data => {
                 this.page = data.page
-                this.totalPages = data.totalPages
+                this.totalPages = data.total_pages
                 this.setState({
-                    films: [ ...this.state.films, ...data.results ],   // équivalant à this.state.films.concat(data.results)                  
+                    films: [...this.state.films, ...data.results],   // équivalant à this.state.films.concat(data.results)                  
                     isLoading: false // Arrêt du chargement
                 })
             })
@@ -46,9 +46,14 @@ class Search extends React.Component {
     _searchFilms() {
         this.page = 0
         this.totalPages = 0
-        this.setState({ films: [] })
-    }
+        this.setState({
+            films: []
+        })
+        // J'utilise la paramètre length sur mon tableau de films pour vérifier qu'il y a bien 0 film
+//        console.log("Page : " + this.page + " / TotalPages : " + this.totalPages + " / Nombre de films : " + this.state.films.length)
 
+        this._loadFilms()
+    }
     _searchTextInputChanged(text) {
         this.searchedText = text // Modification du texte recherché à chaque saisie de texte, sans passer par le setState comme avant
     }
@@ -60,16 +65,17 @@ class Search extends React.Component {
                 <TextInput
                     style={styles.textinput}
                     placeholder='Titre du film'
-                    onSubmitEditing={() => this._loadFilms()}
+                    onSubmitEditing={() => this._searchFilms()}
                     onChangeText={(text) => this._searchTextInputChanged(text)}
                 />
-                <Button title='Rechercher' onPress={() => this._loadFilms()} />
+                <Button title='Rechercher' onPress={() => this._searchFilms()} />
                 <FlatList
                     data={this.state.films}
                     onEndReachedThreshold={0.5}
                     onEndReached={() => {
-                        if (this.page < this.totalPages)
-                        this._loadFilms()
+                        if (this.page < this.totalPages) {
+                            this._loadFilms()
+                        }
                     }}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({ item }) => <FilmItem film={item} />}
