@@ -1,14 +1,27 @@
 import React from 'react'
-import { View, Text, ScrollView } from 'react-native'
 import { createAppContainer } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import ImagesTab from '../Components/ImagesTab'
+import ImageDetail from '../Components/ImageDetail'
 import FavoritesTab from '../Components/FavoritesTab'
+
+const ImagesTabStackNavigator = createStackNavigator({
+    Search: {
+        screen: ImagesTab,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ImageDetail: {
+        screen: ImageDetail
+    }
+})
 
 const ProfileTabNavigator = createMaterialTopTabNavigator(
     {
         ImagesTab: {
-            screen: ImagesTab,
+            screen: ImagesTabStackNavigator,
             navigationOptions: {
                 title: 'Posts'
             }

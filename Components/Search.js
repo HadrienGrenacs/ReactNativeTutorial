@@ -1,5 +1,3 @@
-// Components/Search.js
-
 import React from 'react'
 import { StyleSheet, View, TextInput, Button, Text, FlatList, ActivityIndicator } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -68,7 +66,7 @@ class Search extends React.Component {
                 <ImageList
                     images={this.state.images}
                     loadImages={this._loadImages}
-                //                    navigation={this.props.navigation} // Ici on transmet les informations de navigation pour permettre au component FilmList de naviguer vers le détail d'un film
+                    navigation={this.props.navigation}
                 />
                 {this._displayLoading()}
             </View>

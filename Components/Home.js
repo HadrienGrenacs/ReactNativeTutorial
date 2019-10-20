@@ -66,6 +66,7 @@ class Home extends React.Component {
                 <ImageList
                     images={this.state.images}
                     loadImages={this._loadImages}
+                    navigation={this.props.navigation}
                 />
                 {this._displayLoading()}
             </View>

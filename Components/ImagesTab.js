@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, ScrollView, FlatList, StyleSheet, ActivityIndicator, Image } from 'react-native'
+import { View, Text, ScrollView, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity, Dimensions, Image } from 'react-native'
 import { getAccountImagesFromApi } from '../API/ImgurApi'
 import { tsThisType } from '@babel/types';
 
@@ -30,7 +30,6 @@ class ImagesTab extends React.Component {
         this.setState({ isLoading: true })
         getAccountImagesFromApi().then(data => {
             if (this.state.isLoading) {
-                //                console.log(data.data)
                 this.setState({
                     images: data.data,
                     isLoading: false,
@@ -38,6 +37,10 @@ class ImagesTab extends React.Component {
                 })
             }
         })
+    }
+
+    _displayDetailForImage = (coverImage) => {
+        this.props.navigation.navigate('ImageDetail', { coverImage: coverImage })
     }
 
     _handleRefresh = () => {
@@ -62,10 +65,13 @@ class ImagesTab extends React.Component {
 
     renderItem(item) {
         return (
-            <Image
-                style={styles.image}
-                source={{ uri: 'https://i.imgur.com/' + item.id + 'm.jpg' }}
-            />
+            <TouchableOpacity
+                onPress={() => this._displayDetailForImage(item.id)}>
+                <Image
+                    style={styles.image}
+                    source={{ uri: 'https://i.imgur.com/' + item.id + 'm.jpg' }}
+                />
+            </TouchableOpacity>
         )
     }
 
@@ -102,10 +108,10 @@ const styles = StyleSheet.create({
     },
     image: {
         justifyContent: 'space-between',
-        alignItems: 'flex-start',
+        resizeMode: 'cover',
         flex: 0.5,
-        width: 100,
-        height: 100,
+        width: (Dimensions.get('window').width / 2) - 10,
+        height: 200,
         margin: 5
     }
 })

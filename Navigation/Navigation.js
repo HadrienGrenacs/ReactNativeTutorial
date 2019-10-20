@@ -2,25 +2,51 @@ import React from 'react'
 import { StyleSheet, Image } from 'react-native'
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack'
 import Search from '../Components/Search'
 import Home from '../Components/Home'
 import Upload from '../Components/Upload'
 import Profile from '../Components/Profile'
+import ImageDetail from '../Components/ImageDetail'
+
+const HomeStackNavigator = createStackNavigator({
+    Search: {
+        screen: Home,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ImageDetail: {
+        screen: ImageDetail
+    }
+})
+
+const SearchStackNavigator = createStackNavigator({
+    Search: {
+        screen: Search,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ImageDetail: {
+        screen: ImageDetail
+    }
+})
 
 const AppTabNavigator = createBottomTabNavigator(
     {
         Home: {
-            screen: Home,
+            screen: HomeStackNavigator,
             navigationOptions: {
-                tabBarIcon: () => { // On définit le rendu de nos icônes par les images récemment ajoutés au projet
+                tabBarIcon: () => {
                     return <Image
                         source={require('../Images/ic_home.png')}
-                        style={styles.icon} /> // On applique un style pour les redimensionner comme il faut
+                        style={styles.icon} />
                 }
             }
         },
         Search: {
-            screen: Search,
+            screen: SearchStackNavigator,
             navigationOptions: {
                 tabBarIcon: () => {
                     return <Image
