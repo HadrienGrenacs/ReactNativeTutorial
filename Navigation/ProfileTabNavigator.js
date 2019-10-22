@@ -18,6 +18,19 @@ const ImagesTabStackNavigator = createStackNavigator({
     }
 })
 
+const FavoritesTabStackNavigator = createStackNavigator({
+    Search: {
+        screen: FavoritesTab,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ImageDetail: {
+        screen: ImageDetail
+    }
+})
+
+
 const ProfileTabNavigator = createMaterialTopTabNavigator(
     {
         ImagesTab: {
@@ -27,7 +40,7 @@ const ProfileTabNavigator = createMaterialTopTabNavigator(
             }
         },
         FavoritesTab: {
-            screen: FavoritesTab,
+            screen: FavoritesTabStackNavigator,
             navigationOptions: {
                 title: 'Favorites'
             }

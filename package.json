@@ -10,10 +10,12 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@dudigital/react-native-zoomable-view": "^1.0.14",
     "moment": "^2.24.0",
     "numeral": "^2.0.6",
     "react": "16.9.0",
     "react-native": "0.61.2",
+    "react-native-elements": "^1.2.6",
     "react-native-gesture-handler": "^1.4.1",
     "react-native-image-picker": "^1.1.0",
     "react-native-picker-select": "^6.3.3",
@@ -22,7 +24,7 @@
     "react-native-user-avatar": "^1.0.4",
     "react-native-vector-icons": "^6.6.0",
     "react-native-video": "^5.0.2",
-    "react-native-webview": "^7.4.2",
+    "react-native-webview": "^7.4.3",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.9.4",
     "react-navigation-tabs": "^2.5.6",

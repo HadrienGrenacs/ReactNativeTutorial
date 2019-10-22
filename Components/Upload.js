@@ -1,13 +1,15 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, Button, Image, Dimensions, TouchableOpacity } from 'react-native'
 import ImagePicker from 'react-native-image-picker'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { uploadPhoto } from '../API/ImgurApi'
 
 class Upload extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            imageSource: undefined
+            imageSource: undefined,
+            data: undefined
         }
         this._pickPhoto = this._pickPhoto.bind(this)
     }
@@ -22,22 +24,25 @@ class Upload extends React.Component {
             }
             else {
                 console.log('Photo : ', response.uri)
-                let requireSource = { uri: response.uri }
+                //                let requireSource = { uri: response.uri }
                 this.setState({
-                    imageSource: requireSource
+                    imageSource: response.uri,
+                    imageData: response.data
                 })
-                uploadPhoto(response.data)
+                this.props.navigation.navigate("UploadPhoto", { imageSource: this.state.imageSource, imageData: this.state.imageData });
             }
         })
     }
 
     render() {
         return (
-            <View>
-                <Button
-                    title="Prendre une photo"
-                    onPress={this._pickPhoto}
-                />
+            <View style={styles.main_container}>
+                <Text style={styles.title}>Nouveau post</Text>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={this._pickPhoto}>
+                    <Icon name='md-add' color="white" size={80} />
+                </TouchableOpacity>
             </View>
         )
     }
@@ -45,7 +50,27 @@ class Upload extends React.Component {
 
 const styles = StyleSheet.create({
     main_container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'grey',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    button: {
+        height: 150,
+        width: 150,  //The Width must be the same as the height
+        borderRadius: 300, //Then Make the Border Radius twice the size of width or Height   
+        backgroundColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    image: {
+        width: Dimensions.get('window').width / 2,
+        height: Dimensions.get('window').height / 2,
+        resizeMode: 'contain'
+    },
+    title: {
+        color: 'white',
+        fontSize: 30,
     }
 })
 

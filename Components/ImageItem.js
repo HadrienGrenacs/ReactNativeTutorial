@@ -30,29 +30,22 @@ class ImageItem extends React.Component {
 
 const styles = StyleSheet.create({
     main_container: {
-        marginHorizontal: 10,
         flex: 1,
-        marginTop: 20,
-        backgroundColor: "white"
+        paddingTop: 10
     },
     card_header: {
-        textAlign: 'center',
-        paddingVertical: 15,
-        paddingHorizontal: 20,
-        //        alignItems: 'center',
-        alignContent: 'center'
+        height: 60,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     title: {
-        fontSize: 18,
-        flexWrap: 'wrap',
-        flexDirection: 'column',
-        alignItems: 'flex-start'
+        fontSize: 20,
+        fontWeight: 'bold',
     },
     image: {
+        aspectRatio: 1,
         flex: 1,
-        width: 340,
-//        width: null,
-        height: 350,
         resizeMode: 'contain',
     }
 })

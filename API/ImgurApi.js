@@ -1,6 +1,4 @@
-const clientID = "546c25a59c58ad7";
-const token = "4c7e8ed1b89fc7914a284014a6cc7312e8f7bc00";
-const gabtoken = "842f54e843ec42d8f5f3c58ec954353d5efed3cc";
+const clientID = "80d39b58ac93dda";
 
 export function getImageFromApi(cover) {
     const url = 'https://api.imgur.com/3/image/' + cover
@@ -14,12 +12,25 @@ export function getImageFromApi(cover) {
         .catch((error) => console.error(error));
 }
 
-export function getAccountImagesFromApi() {
+export function getFavoritesImagesFromApi(access, name) {
+    const url = 'https://api.imgur.com/3/account/' + name + '/favorites'
+    return fetch(url, {
+        method: 'GET',
+        headers: {
+            Authorization: "Bearer " + access
+        }
+    })
+        .then((response) => response.json())
+        .catch((error) => console.error(error));
+}
+
+
+export function getAccountImagesFromApi(access) {
     const url = 'https://api.imgur.com/3/account/me/images'
     return fetch(url, {
         method: 'GET',
         headers: {
-            Authorization: "Bearer " + gabtoken
+            Authorization: "Bearer " + access
         }
     })
         .then((response) => response.json())
@@ -63,13 +74,15 @@ export function getProfileFromApi(name) {
         .catch((error) => console.error(error));
 }
 
-export function uploadPhoto(photo) {
+export function uploadPhoto(access, photo, title, description) {
     const formData = new FormData();
     formData.append('image', photo);
+    formData.append('title', title);
+    formData.append('description', description);
     fetch('https://api.imgur.com/3/image', {
         method: 'POST',
         headers: {
-            Authorization: "Bearer " + token
+            Authorization: "Bearer " + access
         },
         body: formData
     })

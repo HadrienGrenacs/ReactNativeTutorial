@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, ScrollView, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity, Dimensions, Image } from 'react-native'
 import { getAccountImagesFromApi } from '../API/ImgurApi'
-import { tsThisType } from '@babel/types';
+import { connect } from 'react-redux'
 
 class ImagesTab extends React.Component {
     constructor(props) {
@@ -9,10 +9,8 @@ class ImagesTab extends React.Component {
         super(props)
         this.state = {
             images: [],
-            isLoading: false,
             refreshing: false
         }
-        //        this._loadImages = this._loadImages.bind(this)
     }
 
     componentDidMount() {
@@ -27,15 +25,11 @@ class ImagesTab extends React.Component {
     }
 
     _loadImages() {
-        this.setState({ isLoading: true })
-        getAccountImagesFromApi().then(data => {
-            if (this.state.isLoading) {
-                this.setState({
-                    images: data.data,
-                    isLoading: false,
-                    refreshing: false
-                })
-            }
+        getAccountImagesFromApi(this.props.accessToken).then(data => {
+            this.setState({
+                images: data.data,
+                refreshing: false
+            })
         })
     }
 
@@ -51,16 +45,6 @@ class ImagesTab extends React.Component {
                 this._loadImages();
             }
         )
-    }
-
-    _displayLoading() {
-        if (this.state.isLoading) {
-            return (
-                <View style={styles.loading_container}>
-                    <ActivityIndicator size='large' />
-                </View>
-            )
-        }
     }
 
     renderItem(item) {
@@ -87,7 +71,6 @@ class ImagesTab extends React.Component {
                     onRefresh={this._handleRefresh}
                     refreshing={this.state.refreshing}
                 />
-                {this._displayLoading()}
             </View>
         )
     }
@@ -116,4 +99,11 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ImagesTab
+
+const mapStateToProps = state => {
+    return {
+        accessToken: state.accessToken
+    }
+}
+
+export default connect(mapStateToProps)(ImagesTab)

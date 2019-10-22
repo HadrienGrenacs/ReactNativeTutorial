@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, ImageBackground, ActivityIndicator 
 import Navigation from '../Navigation/ProfileTabNavigator'
 import UserAvatar from 'react-native-user-avatar'
 import { getProfileFromApi } from '../API/ImgurApi'
+import { connect } from 'react-redux'
 
 class Profile extends React.Component {
 
@@ -29,7 +30,7 @@ class Profile extends React.Component {
 
     _loadProfile() {
         this.setState({ isLoading: true })
-        getProfileFromApi("warkof").then(data => {
+        getProfileFromApi(this.props.userName).then(data => {
 //            console.log(data.data.url)
             if (this.state.isLoading) {
                 this.setState({
@@ -88,4 +89,10 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Profile
+const mapStateToProps = state => {
+    return {
+        userName: state.userName
+    }
+}
+
+export default connect(mapStateToProps)(Profile)

@@ -6,6 +6,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 import Search from '../Components/Search'
 import Home from '../Components/Home'
 import Upload from '../Components/Upload'
+import UploadPhoto from '../Components/UploadPhoto'
 import Profile from '../Components/Profile'
 import ImageDetail from '../Components/ImageDetail'
 
@@ -33,6 +34,22 @@ const SearchStackNavigator = createStackNavigator({
     }
 })
 
+const UploadStackNavigator = createStackNavigator({
+    Upload: {
+        screen: Upload,
+        navigationOptions: {
+            header: null
+        }
+    },
+    UploadPhoto: {
+        screen: UploadPhoto,
+        navigationOptions: {
+            header: null
+        }
+    }
+})
+
+
 const AppTabNavigator = createBottomTabNavigator(
     {
         Home: {
@@ -56,7 +73,7 @@ const AppTabNavigator = createBottomTabNavigator(
             }
         },
         Upload: {
-            screen: Upload,
+            screen: UploadStackNavigator,
             navigationOptions: {
                 tabBarIcon: () => {
                     return <Image

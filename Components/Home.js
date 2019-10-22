@@ -30,6 +30,7 @@ class Home extends React.Component {
     _loadImages(section) {
         this.setState({ isLoading: true })
         getGalleryFromApi(section).then(data => {
+            console.log(data.data)
             if (this.state.isLoading) {
                 this.setState({
                     images: data.data,
@@ -64,6 +65,7 @@ class Home extends React.Component {
                     />
                 </View>
                 <ImageList
+
                     images={this.state.images}
                     loadImages={this._loadImages}
                     navigation={this.props.navigation}
@@ -77,7 +79,7 @@ class Home extends React.Component {
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
-        backgroundColor: "#E6E6E6",
+        backgroundColor: "#fff",
     },
     input: {
         fontSize: 16,
