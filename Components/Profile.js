@@ -31,7 +31,6 @@ class Profile extends React.Component {
     _loadProfile() {
         this.setState({ isLoading: true })
         getProfileFromApi(this.props.userName).then(data => {
-//            console.log(data.data.url)
             if (this.state.isLoading) {
                 this.setState({
                     profil: data.data,

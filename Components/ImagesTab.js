@@ -79,6 +79,7 @@ class ImagesTab extends React.Component {
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
+        backgroundColor: 'black'
     },
     loading_container: {
         position: 'absolute',
@@ -98,7 +99,6 @@ const styles = StyleSheet.create({
         margin: 5
     }
 })
-
 
 const mapStateToProps = state => {
     return {

@@ -31,7 +31,6 @@ class Login extends React.Component {
 
     _splitUrl(url) {
         if (url.search("access_token=") > 0) {
-            console.log(url)
             let array = url.split("=");
             this.accessToken = array[2].split('&')[0];
             this.expiresIn = array[3].split('&')[0];

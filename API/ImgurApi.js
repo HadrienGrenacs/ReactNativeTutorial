@@ -12,6 +12,18 @@ export function getImageFromApi(cover) {
         .catch((error) => console.error(error));
 }
 
+export function setFavoriteImage(access, cover) {
+    const url = 'https://api.imgur.com/3/image/' + cover + '/favorite'
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            Authorization: "Bearer " + access
+        }
+    })
+        .then((response) => console.log(response))
+        .catch((error) => console.error(error))
+}
+
 export function getFavoritesImagesFromApi(access, name) {
     const url = 'https://api.imgur.com/3/account/' + name + '/favorites'
     return fetch(url, {

@@ -31,10 +31,10 @@ class ImageItem extends React.Component {
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
-        paddingTop: 10
+        paddingTop: 20
     },
     card_header: {
-        height: 60,
+        height: 70,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'

@@ -30,7 +30,6 @@ class Home extends React.Component {
     _loadImages(section) {
         this.setState({ isLoading: true })
         getGalleryFromApi(section).then(data => {
-            console.log(data.data)
             if (this.state.isLoading) {
                 this.setState({
                     images: data.data,

@@ -25,7 +25,9 @@ class FavoritesTab extends React.Component {
     }
 
     _loadImages() {
+        console.log(this.accessToken)
         getFavoritesImagesFromApi(this.props.accessToken, this.props.userName).then(data => {
+            console.log(data.data)
             this.setState({
                 images: data.data,
                 refreshing: false
@@ -79,6 +81,7 @@ class FavoritesTab extends React.Component {
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
+        backgroundColor: 'black'
     },
     loading_container: {
         position: 'absolute',
@@ -101,7 +104,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        state
+        accessToken: state.accessToken,
+        userName: state.userName
     }
 }
 
